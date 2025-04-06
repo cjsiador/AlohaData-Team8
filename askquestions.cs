@@ -5,7 +5,6 @@ using System.Net;
 using System.Text;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 
 public class AskQuestion : MonoBehaviour
 {
@@ -14,8 +13,6 @@ public class AskQuestion : MonoBehaviour
     public TMP_Text responseText; // TMP Text to display the response
     public TMP_Text loadingText; // Optional: A TMP Text to show when loading
     private string flaskServerUrl = "http://35.232.223.5:5000/generate"; // HTTP API URL (non-HTTPS)
-
-    private List<string> sessionHistory = new List<string>(); // Store conversation history
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +38,6 @@ public class AskQuestion : MonoBehaviour
         {
             // Show loading text and disable the button to avoid multiple requests
             SetLoadingState(true);
-            sessionHistory.Add("User: " + question); // Add user question to history
             StartCoroutine(SendQuestionToFlaskAPI(question));
         }
         else
@@ -53,9 +49,7 @@ public class AskQuestion : MonoBehaviour
     // Coroutine to send the question to Flask API and get the response
     IEnumerator SendQuestionToFlaskAPI(string question)
     {
-        // Include conversation history for context
-        string conversationContext = string.Join("\n", sessionHistory);
-        string jsonData = "{\"prompt\": \"" + conversationContext + "\"}";
+        string jsonData = "{\"prompt\": \"" + question + "\"}";
 
         using (UnityWebRequest webRequest = new UnityWebRequest(flaskServerUrl, "POST"))
         {
@@ -77,9 +71,6 @@ public class AskQuestion : MonoBehaviour
 
                 // Set the cleaned response to the UI text
                 responseText.text = cleanedResponse;
-
-                // Add AI response to session history
-                sessionHistory.Add("AI: " + cleanedResponse);
             }
             else
             {
