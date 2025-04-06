@@ -1,4 +1,4 @@
-#🦸‍♂️ Unity + Google Gemini 1.5 Integration
+🦸‍♂️ Unity + Google Gemini 1.5 Integration##
 This project demonstrates how to connect a Unity application to Google's Gemini 1.5 AI model to send text prompts and receive AI-generated responses in real-time. It includes the implementation of a custom Web API that handles the communication between Unity and the Gemini API, all while featuring a fun, interactive turtle that speaks to you through Gemini-AI.
 
 📌 Overview
