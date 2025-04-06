@@ -6,7 +6,7 @@ using TMPro; // TMP namespace for TMP_InputField and TMP_Text
 
 public class GeminiAPIClient : MonoBehaviour
 {
-    public string apiUrl = "https://8846-35-232-223-5.ngrok-free.app/generate"; // Flask or ngrok URL
+    public string apiUrl = "http://35.232.223.5:5000/generate"; // Flask or ngrok URL
     public TMP_InputField promptInputField;  // TMP UI Input Field
     public TMP_Text responseText;  // TMP UI Text to display the response
 
@@ -24,7 +24,7 @@ public class GeminiAPIClient : MonoBehaviour
 
     private IEnumerator SendRequest(string prompt)
     {
-        string json = "{\"prompt\": \"" + prompt + "\"}";
+        string json = "{"prompt": "" + prompt + ""}";
         byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
 
         UnityWebRequest www = new UnityWebRequest(apiUrl, "POST");
@@ -45,4 +45,3 @@ public class GeminiAPIClient : MonoBehaviour
         }
     }
 }
-
