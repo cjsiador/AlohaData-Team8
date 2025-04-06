@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logLevel: 1
-  modelPath: Whisper/ggml-small.bin
+  modelPath: Whisper/ggml-tiny.bin
   isModelPathInStreamingAssets: 1
   initOnAwake: 1
   language: auto
@@ -1938,7 +1938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a607d4c8ca544aa4a06acc29d3811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: AIzaSyCsY-91JBTjWHeppsitOyvajB1bPfPS_NA
+  apiKey: 
   microphoneDemo: {fileID: 1337591122}
   userInput: {fileID: 0}
   userPrompt: What is the sea life turtle?
