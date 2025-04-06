@@ -1,67 +1,39 @@
-🦸‍♂️ Unity + Google Gemini 1.5 Integration##
+# <h1 style="font-size: 36px;">🦸‍♂️ Unity + Google Gemini 1.5 Integration</h1>
+
 This project demonstrates how to connect a Unity application to Google's Gemini 1.5 AI model to send text prompts and receive AI-generated responses in real-time. It includes the implementation of a custom Web API that handles the communication between Unity and the Gemini API, all while featuring a fun, interactive turtle that speaks to you through Gemini-AI.
 
-📌 Overview
-The goal is to allow Unity to send text prompts to Gemini 1.5 Pro and receive AI-generated responses in real-time. This is accomplished using a custom Web API that handles communication between Unity and the Gemini API. The interaction involves a super cool turtle that engages with users through AI-generated dialogue.
+## <h2 style="font-size: 30px;">📌 Overview</h2>
 
-🧱 Project Components
-Unity Project: The frontend interface where users can enter prompts and see AI-generated responses from Gemini.
+The goal is to allow Unity to send text prompts to **Gemini 1.5 Pro** and receive AI-generated responses in real-time. This is accomplished using a custom Web API that handles communication between Unity and the Gemini API. The interaction involves a super cool turtle that engages with users through AI-generated dialogue.
 
-Web API: The backend service that securely connects to Gemini Pro and sends back responses to Unity.
+## <h2 style="font-size: 30px;">🧱 Project Components</h2>
 
-Google Gemini API: Google’s large language model that generates the AI responses based on the input.
+- **Unity Project**: The frontend interface where users can enter prompts and see AI-generated responses from Gemini.
+- **Web API**: The backend service that securely connects to Gemini Pro and sends back responses to Unity.
+- **Google Gemini API**: Google’s large language model that generates the AI responses based on the input.
+- **Google Compute Engine**: A cloud service (running on a VM with Ubuntu) that handles the AI generation and offloads heavy processing from the local machine.
 
-Google Compute Engine: A cloud service (running on a VM with Ubuntu) that handles the AI generation and offloads heavy processing from the local machine.
+## <h2 style="font-size: 30px;">🏗️ Our Process</h2>
 
-🏗️ Our Process
-Setting Up the Back-End: The back-end was set up using Google Cloud Compute Engine with an Ubuntu LTS VM. The main task was to ensure fast, efficient AI response generation by connecting to the Google Gemini 1.5 API via a secure, custom Web API.
+- **Setting Up the Back-End**: The back-end was set up using **Google Cloud Compute Engine** with an **Ubuntu LTS** VM. The main task was to ensure fast, efficient AI response generation by connecting to the Google Gemini 1.5 API via a secure, custom Web API.
 
-Connecting the VM to Unity: The biggest hurdle was ensuring proper communication between Unity and the Google Cloud VM. We faced several challenges, especially in displaying the AI responses correctly in Unity. The solution involved sending a request to the VM and receiving the raw response directly, bypassing the complex JSON parsing. Unity was quite tricky in terms of managing external API responses, but eventually, we found a way to present the results cleanly.
+- **Connecting the VM to Unity**: The biggest hurdle was ensuring proper communication between Unity and the Google Cloud VM. We faced several challenges, especially in displaying the AI responses correctly in Unity. The solution involved sending a request to the VM and receiving the raw response directly, bypassing the complex JSON parsing. Unity was quite tricky in terms of managing external API responses, but eventually, we found a way to present the results cleanly.
 
-Handling Insecure Connections: One of the earlier challenges involved dealing with insecure connections between Unity and the web server (Google Cloud). We eventually resolved this by configuring Unity to accept connections that didn’t require HTTPS, given the context of a local development environment, but we recommend securing connections for production use.
+- **Handling Insecure Connections**: One of the earlier challenges involved dealing with insecure connections between Unity and the web server (Google Cloud). We eventually resolved this by configuring Unity to accept connections that didn’t require HTTPS, given the context of a local development environment, but we recommend securing connections for production use.
 
-VM Deployment on Google Cloud: We initially ran the back-end using NGROK for secure tunneling, but that wasn’t ideal for long-term deployment. We successfully moved everything over to Google Cloud and set up a static external IP to allow Unity to communicate directly with the VM without needing to rely on NGROK.
+- **VM Deployment on Google Cloud**: We initially ran the back-end using **NGROK** for secure tunneling, but that wasn’t ideal for long-term deployment. We successfully moved everything over to Google Cloud and set up a static external IP to allow Unity to communicate directly with the VM without needing to rely on NGROK.
 
-Dealing with Authentication and API Issues: After setting up the VM and connecting it to Gemini, we ran into issues with API authentication and scopes. Specifically, Google Cloud had strict permission requirements, and at one point, we hit a 403 error due to insufficient authentication scopes. After a lot of troubleshooting and adjusting API credentials, the server finally started accepting requests.
+- **Dealing with Authentication and API Issues**: After setting up the VM and connecting it to Gemini, we ran into issues with API authentication and scopes. Specifically, Google Cloud had strict permission requirements, and at one point, we hit a 403 error due to insufficient authentication scopes. After a lot of troubleshooting and adjusting API credentials, the server finally started accepting requests.
 
-🐢 Troubleshooting: Memory Allocation and API Prompt Issues
-During the development of this project, we encountered a few technical challenges related to memory allocation and managing the prompt that gets sent to the Gemini 1.5 API. These issues impacted both the backend (Flask API) and the Unity frontend integration. Below, we’ve documented these challenges and the solutions we implemented.
+## <h2 style="font-size: 30px;">🚀 Getting Started</h2>
 
-🔧 Memory Allocation Issues
-While integrating Unity with the Google Gemini 1.5 API, we encountered performance bottlenecks due to memory allocation constraints, especially when processing large AI responses in real-time. Unity, when handling large text responses from Gemini, was struggling to allocate memory efficiently, particularly in environments with limited resources.
+Follow the steps below to set up this project on your local machine or a cloud server like **Google Cloud**.
 
-Solution:
+### 1. Clone the Repository
 
-Backend Optimization: We handled the heavy lifting on the backend (Google Cloud VM) to offload the processing from the Unity client. This ensures that only necessary data is sent to Unity and reduces the memory load on the client side.
-
-Prompt Simplification: We made sure to keep prompts concise and split larger requests into smaller chunks when necessary to prevent overwhelming the system.
-
-📝 Prompt Handling and Persona Management
-One of the difficulties we faced was ensuring that the persona of the AI (in this case, a turtle) was consistently applied during each interaction. Initially, we were sending a generic prompt from Unity, but it was critical to maintain the turtle persona throughout the dialogue.
-
-Solution:
-
-Backend Persona Handling: Instead of modifying the Unity script, we added the persona handling directly within the backend (Flask API). The prompt sent from Unity is appended with the persona at the backend level, ensuring that every response generated by Gemini includes the context of the turtle character.
-
-Static Persona Assignment: The persona is hardcoded in the backend as part of the prompt construction, which simplifies things for Unity. This way, Unity just needs to send the user prompt, and the backend takes care of the rest.
-
-📡 API Integration and Data Transmission
-We also faced issues related to API calls, including handling large payloads and managing timeouts during the communication between Unity and the Google Cloud VM. Occasionally, Unity would time out waiting for a response or encounter issues with parsing JSON responses.
-
-Solution:
-
-Optimizing API Calls: We ensured that the API calls from Unity were optimized to handle both large and small payloads effectively. By using UnityWebRequest's async capabilities, we avoided blocking operations and handled responses in real-time.
-
-Backend Simplification: On the backend, we focused on returning a clean and simplified response to Unity, removing unnecessary data and ensuring the response format was consistent. We also implemented timeout handling on both the client and server sides to ensure that Unity never waits too long for a response.
-
-🚀 Getting Started
-Follow the steps below to set up this project on your local machine or a cloud server like Google Cloud.
-
-1. Clone the Repository
-
+```bash
 git clone https://github.com/your-team/repo-name.git
 cd repo-name
-
 git clone https://github.com/evanmorg/AlohaData-Team8
 cd AlohaData-Team8.
 
