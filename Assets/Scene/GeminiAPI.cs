@@ -208,9 +208,9 @@ public class GeminiAPI : MonoBehaviour
     {
         isBlinkingActive = true;
 
-        responseText.text = currentStr + "<color=#FFFFFFFF>" + trailingChar + "</color>" + " 1";
+        responseText.text = currentStr + "<color=#FFFFFFFF>" + trailingChar + "</color>";
         yield return new WaitForSeconds(0.530f);
-        responseText.text = currentStr + "<color=#FFFFFF00>" + trailingChar + "</color>" + " 2";
+        responseText.text = currentStr + "<color=#FFFFFF00>" + trailingChar + "</color>";
         yield return new WaitForSeconds(0.530f);
         
         isBlinkingActive = false;

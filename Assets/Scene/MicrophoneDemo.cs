@@ -13,6 +13,7 @@ namespace Whisper.Samples
     public class MicrophoneDemo : MonoBehaviour
     {
         public WhisperManager whisper;
+        public GeminiAPI geminiAPI;
         public MicrophoneRecord microphoneRecord;
         public bool streamSegments = true;
         public bool printLanguage = true;
@@ -93,6 +94,8 @@ namespace Whisper.Samples
             outputText.text = text;
             outputString = text;
 
+            geminiAPI.AskGemini(text);
+            
             UiUtils.ScrollDown(scroll);
         }
         
